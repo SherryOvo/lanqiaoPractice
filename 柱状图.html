@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="echarts.js"></script>
+    <title>带背景颜色的柱状图</title>
+</head>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #main {
+      margin: 20px;
+      background-color: #fff;
+    }
+</style>
+<body>
+    <div id="main" style="width:1000px;height:600px;"></div>
+</body>
+<script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option = {
+  tooltip: {
+    trigger: "axis",
+    axisPointer: {
+      // 坐标轴指示器配置项
+      type: "cross",
+      crossStyle: {
+        color: "red",
+      },
+    },
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      saveAsImage: { show: true }, // 保存图片
+    },
+  },
+  legend: {
+    data: ["男", "女"], // 图例的数据数组
+  },
+  xAxis: [
+    {
+      type: "category",
+      data: ["中国", "美国", "古巴", "印度", "巴西", "不丹", "德国"],
+      axisPointer: {
+        type: "shadow",
+      },
+    },
+  ],
+  yAxis: [
+    {
+      type: "value",
+      name: "人口数量",
+      min: 0,
+      max: 8000,
+      interval: 1000,
+      axisLabel: {
+        formatter: "{value} 万",
+      },
+    },
+  ],
+  series: [
+    {
+      name: "男",
+      type: "bar",
+      data: [7113, 1619, 2340, 6987, 1046, 3783, 4145],
+    },
+    {
+      name: "女",
+      type: "bar",
+      data: [6787, 1660, 2049, 6545, 1080, 4260, 3989],
+    },
+  ],
+};
+    myChart.setOption(option);
+</script>
+</html>

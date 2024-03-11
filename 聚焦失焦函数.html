@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = function(){
+            var x = document.getElementById("username");
+            name.onfoucs = function(){
+                if (name.value == "输入你的名字") {
+                    name.value= " ";
+                }
+                this.style.color = "#77acf1";
+            };
+            name.onblur = function(){
+                if (name.value == "") {
+                    name.value= "输入你的名字";
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+姓名：<input type="text" name="username" id="username" value="输入你的名字" onfocus="this.value=' ';"><br>
+密码：<input type="password" name="password" id="password" value="输入你的名字">
+</body>
+</html>
+
+<!-- /*鼠标事件：
+ onclick
+ onmouseover
+ onmouseout
+ onmousedown
+ onmouseup
+ onmousemove
+键盘事件：
+  onkeydown
+  onkeyup
+表单事件：
+  onfocus
+  onblur
+*/ -->

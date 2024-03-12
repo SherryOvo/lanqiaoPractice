@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://labfile.oss.aliyuncs.com/courses/3774/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+    <!-- <script>
+        $(document).ready(function(){
+            $("body").html("Hello Jquery");
+        })
+    </script> -->
+</head>
+<body>
+ <div class="controller">
+  <label for="txt-fruit">请输入水果：</label>
+  <input type="text" id="txt-fruit">
+  <button id="btn-add">添加</button>
+  <button id="btn-remove">删除</button></br>
+  <label for="txt-fruit">新水果名</label>
+  <input type="text" id="txt-upgrade">
+  <button id="btn-upgrade">修改</button>
+ </div>
+<div class="display">
+  <ul id="lst-fruits">
+    <li><span class="item-name">苹果</span>
+        <span class="item-count">2</span></li>
+  </ul>
+</div>
+<script>
+    function fruitApp(){
+      //获取页面中需要被访问的元素对象
+      var txtFruit = document.querySelector("#txt-fruit");
+      var txtUpgrade = document.getElementById("txt-upgrade"); 
+      var btnAdd = document.querySelector("#btn-add");
+      var btnRemove = document.querySelector("#btn-remove");
+      var btnUpgrade = document.querySelector("#btn-remove");
+      var IsFruits = document.getElementById("#Ist-fruits");
+      //获取用户输入的水果，创建列表元素，并添加。
+      //如果该水果已存在，则增加其数量+1，否则，创建并添加，数量为1.
+      btnAdd.onclick = function(){
+        var strFruitName = txtFruit.value;
+      }
+    }
+    var FruitItem = getFruitItem(strFruitName);
+    if(FruitItem){
+        var itemCount = FruitItem.querySelector("span.item-count");
+        itemCount.textContent = parseInt(itemCount.textContent) + 1;
+    }else{
+        var newItem = document.createElement("li");
+        var spanName = document.createElement("span");
+        var spanCounter = document.createElement("span");
+        spanName.classList.add("item-name");
+        spanCounter = strFruitName;
+        spanCounter.textContent = 1;
+        newItem.appendChild(spanName);
+        newItem.appendChild(spanCounter);
+        IsFruits.appendChild(newItem);
+    }
+    //获取指定水果名称的列表项
+    //若找到，则返回指定的li元素对象，否则返回null
+    function getFruitItem(fruitName){
+        var items = IsFruits.querySelectorAll("li");
+        for(var item of items){
+            if(item.querySelector("span.item-name").textContent == fruitName)
+            r = item;
+        break;
+        } 
+    }
+    window.onload = function(){
+        fruitApp();
+    }
+</script>
+</body>
+</html>

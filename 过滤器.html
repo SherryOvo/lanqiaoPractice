@@ -1,0 +1,101 @@
+<!------------------ 使用 filters 过滤器实现大写转换和自动去除字符串中的数字。---------------------------->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>syl-vue-test</title>
+    <!-- 引入 vue.js -->
+    <script src="vue.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- toUpperCase   getString  为自定义的过滤器-->
+      <p>小写转换大写：过滤前：{{msg}} 过滤后： {{msg|toUpperCase}}</p>
+      <p>去除数字：过滤前：{{msg2}} 过滤后： {{msg2|getString}}</p>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello",
+          msg2: "1s2y3l",
+        },
+        // filters 过滤器选项
+        filters: {
+          // toUpperCase 定义一个字符串转大写的过滤器
+          toUpperCase: function (val) {
+            return val.toUpperCase();
+          },
+          // getString 定义一个获取去除数字的过滤器
+          getString: function (val) {
+            let newVal = "";
+            val.split("").map(function (item) {
+              if (9 >= item && item >= 0) {
+                return;
+              } else {
+                return (newVal += item);
+              }
+            });
+            return newVal;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+<!-- ------------------------------------------------------------------------------------------ -->
+<!--------------------------- 购物车实现 ---------------------------------------------------------->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>syl-vue-test</title>
+    <!-- 引入 vue.js -->
+    <script src="vue.min.js"></script>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .price {
+        font-size: 22px;
+        color: brown;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- joint 为自定义的过滤器-->
+      <p>单价<span class="price">{{price|joint}}</span></p>
+      数量：<input type="number" v-model="goodsNum" />
+      <p>总价：<span class="price">{{allPrice|joint}}</span></p>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          goodsNum: 0,
+          price: 199,
+        },
+        computed: {
+          allPrice: function () {
+            return this.goodsNum * this.price;
+          },
+        },
+        // filters 过滤器选项
+        filters: {
+          // joint 定义 ￥ 拼接过滤器
+          joint: function (price) {
+            return "￥" + price;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+<!-- <src="https://doc.shiyanlou.com/document-uid940410labid10292timestamp1552637740527.png"></src> -->
+<!-- ------------------------------------------------------------------------------------------ -->

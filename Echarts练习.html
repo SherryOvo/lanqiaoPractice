@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./node_modules/echarts/dist/echarts.js"></script>
+    <title>ECharts 快速上手</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #main {
+      margin: 20px;
+      background-color: rgb(228, 255, 192);
+    }
+  </style>
+  <body>
+    <!-- 为 ECharts 准备一个宽为 600px，高为 400px 的 DOM -->
+    <div id="main" style="width:600px;height:400px;"></div>
+  </body>
+
+  <script>
+    var chartDom = document.getElementById("main");
+    // 初始化实例对象 echarts.init(dom) 容器;
+    var myChart = echarts.init(chartDom);
+    // 指定配置项和数据
+    var option = {
+      xAxis: {
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      },
+      yAxis: {
+        type: "value",
+      },
+      series: [
+        {
+          data: [150, 230, 224, 218, 135, 147, 260],
+          type: "line",
+        },
+      ],
+    };
+    // 将配置项设置给 echarts 实例对象。
+    myChart.setOption(option);
+  </script>
+</html>

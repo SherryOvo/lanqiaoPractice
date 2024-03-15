@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+        background-color: #f83c8b;
+        animation-name: action;
+        animation-duration: 7s;
+        animation-iteration-count: 10;
+      }
+      @keyframes action {
+        0% {
+          margin-left: 400px;
+        }
+        25% {
+          background-color: #d61313;
+        }
+        50% {
+          border-radius: 10%;
+        }
+        100% {
+          margin: 100px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="circle"></div>
+  </body>
+</html>

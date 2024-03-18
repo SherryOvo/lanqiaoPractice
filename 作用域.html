@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      //ES5中的变量声明与使用
+      console.log(v1); //undefined 提前声明
+      var v1 = 100;
+      console.log(v1); //100
+      var v1 = "hello"; //可以重复声明
+      console.log(v1); //hello
+      console.log(window.v1);//hello, var 声明的quivalent property 会被添加到全局对象window中
+       var fs = [];
+       for(var i=0;i < 5;i++){
+        fs[i] = function(){
+          var n=i;
+          console.log(n);
+        };
+        fs[i] = function(n){
+          return function(){
+            console.log(n);
+          }
+        }
+       }
+      
+      
+      
+      //********************************************************************************************
+      function displaySequence() {
+      var sequence = generateSequence(); // Generate the sequence
+      var output = ''; // Initialize output string
+      for (var i = 0; i < sequence.length; i++) {
+        output += sequence[i] + ', '; // Add each number to the output string
+      }
+      document.getElementById('output').innerHTML = output; // Display the output on webpage
+    }
+    //********************************************************************************************
+    </script>
+</body>
+<body>
+<h1>Fibonacci Sequence</h1>
+  <button onclick="displaySequence()">Display Sequence</button> <!-- Button to trigger display of sequence -->
+  <p id="output"></p>
+</body>
+</html>

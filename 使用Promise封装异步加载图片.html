@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Load Image</title>
+</head>
+
+<body>
+    <button id="btn-load">Load Image</button>
+    <span id="info"></span>
+    <div id="image-holder"></div>
+
+    <script>
+        let info_place = document.querySelector("#info");
+        function loadImageAsync(url) {
+            return new Promise(function (resolve, reject) {
+                var image = new Image();
+                image.onload = function () {
+                    resolve(this);
+                };
+                image.onerror = function () {
+                    reject(new Error('Counld not load image at ' + url));
+                };
+                image.src = url;
+            });
+        }
+        document.querySelector("#btn-load").addEventListener("click", function () {
+            loadImageAsync('http://www.cdjcc.edu.cn/images/2023niandugongzuohuiyi.jpg').then(function (image) {
+                document.querySelector("#image-holder").appendChild(image);
+                info_place.textContent = `Image loaded: ${image.src}`;
+            }, function (error) {
+                info_place.textContent = `ERR: ${error.message}`;
+            });
+        })
+
+    </script>
+</body>
+
+</html>

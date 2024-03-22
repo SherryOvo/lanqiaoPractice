@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Example</title>
+    <style>
+        div {
+            display: flex;
+            justify-content: center;
+        }
+
+        #users {
+            width: 25%;
+        }
+
+        #users .user {
+            list-style: none;
+            margin-bottom: 14px;
+            padding: 0 0 0 10px;
+            line-height: 1.2em;
+            cursor: pointer;
+        }
+
+        #users .user:hover {
+            color: #4155c6;
+        }
+
+        #users .user::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #4155c6;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        #posts {
+            width: 50%;
+        }
+
+        #posts .title {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        #posts .content {
+            margin-bottom: 10px;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="users"></div>
+        <div id="posts"></div>
+    </div>
+    <script>
+        window.onload = function () {
+            loadData();
+        }
+
+        function loadData() {
+            const baseUrlPosts = "https://jsonplaceholder.typicode.com/posts";
+            const baseUrlUsers = "https://jsonplaceholder.typicode.com/users";
+            const usersContainer = document.getElementById("users");
+            const postsContainer = document.getElementById("posts");
+
+            fetchDataAndRenderUsers(baseUrlUsers, usersContainer).catch(error => {
+                renderError(error, "users");
+            });
+
+            fetchDataAndRenderPosts(baseUrlPosts, postsContainer).catch(error => {
+                renderError(error, "posts");
+            });
+
+            function fetchDataAndRenderUsers(url, container) {
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Failed to load users data");
+                        }
+                        return response.json();
+                    })
+                    .then(users => {
+                        renderUserList(users);
+                    })
+                    .catch(error => {
+                        throw new Error("Failed to render users data");
+                    });
+            }
+
+            function fetchDataAndRenderPosts(url, container) {
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Failed to load posts data");
+                        }
+                        return response.json();
+                    })
+                    .then(posts => {
+                        renderPostList(posts);
+                    })
+                    .catch(error => {
+                        throw new Error("Failed to render posts data");
+                    });
+            }
+
+            function renderUserList(users) {
+                const ul = document.createElement("ul");
+                users.forEach(user => {
+                    const li = document.createElement("li");
+                    li.textContent = user.name;
+                    li.classList.add("user");
+                    li.addEventListener("click", () => {
+                        fetchDataAndRenderUserPosts(user.id, postsContainer).catch(error => {
+                            renderError(error, "posts");
+                        });
+                    });
+                    ul.appendChild(li);
+                });
+                usersContainer.appendChild(ul);
+            }
+
+            function renderPostList(posts) {
+                const dl = document.createElement("dl");
+                posts.forEach(post => {
+                    const dt = document.createElement("dt");
+                    dt.classList.add("title");
+                    dt.textContent = post.title;
+                    dl.appendChild(dt);
+                    const dd = document.createElement("dd");
+                    dd.classList.add("content");
+                    dd.textContent = post.body;
+                    dl.appendChild(dd);
+                });
+                postsContainer.innerHTML = "";
+                postsContainer.appendChild(dl);
+            }
+
+            function fetchDataAndRenderUserPosts(userId, container) {
+                fetch(`${baseUrlPosts}?userId=${userId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Failed to load user posts data");
+                        }
+                        return response.json();
+                    })
+                    .then(posts => {
+                        renderPostList(posts);
+                    })
+                    .catch(error => {
+                        throw new Error("Failed to render user posts data");
+                    });
+            }
+        }
+
+        function renderError(error, user_or_post) {
+            const p = document.createElement("p");
+            p.textContent = `Failed to load ${user_or_post} data: ${error.message}`;
+            postsContainer.appendChild(p);
+        }
+
+        function renderUserPosts(userId) {
+            fetchDataAndRenderUserPosts(userId, postsContainer);
+        }
+
+        function renderUser(userId) {
+            fetchDataAndRenderUser(userId, userContainer);
+        }
+
+        function renderUsers() {
+            fetchDataAndRenderUsers(usersContainer);
+        }
+
+        function renderUsersAndUserPosts(userId) {
+            renderUsers();
+            renderUser(userId);
+            renderUserPosts(userId);
+        }
+
+        renderUsersAndUserPosts(1);
+    </script>
+</body>
+</html>

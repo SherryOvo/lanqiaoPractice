@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <button onclick="getUsers()">getUsers</button>
+  </head>
+  <body>
+    <button onclick="getusers()">getusers<button>
+    <ul id="userList"></ul>
     <script>
-        let getUsers = ()=>{
-            let xhr = new XMLHttpRequest();
-            xhr.open('get','http://1.14.69.117:5000/users');
-            xhr.onload =()=>{
-                if(xhr.status == 200){
-                console.log(xhr.response)
-                }
-            }
-            xhr.send();
-        }
+      let getusers = () => {
+        let xhr = new XMLHttpRequest();
+        xhr.open("get", "http://1.14.69.117:5000/users ");
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            console.log(xhr.response);
+            let userList = document.querySelector("#userList");
+            let users = JSON.parse(xhr.response);
+            let lisStr = "";
+            users.forEach((one) => {
+              lisStr += `<li>id:${one.id} name:${one.name}</li>`;
+            });
+            userList.innerHTML = lisStr;
+          }
+        };
+        xhr.send();
+      };
     </script>
-</body>
+  </body>
 </html>

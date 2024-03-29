@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    div{
+        display:flex
+    }
+    .div1{
+        width: 50%;
+        height: 100px;
+        box-sizing:border-box;
+        border: 5px solid blue;
+        display: inline;
+        float:left;
+    }
+    .div2{
+        width: 50%;
+        height: 100px;
+        box-sizing:border-box;
+        border: 5px solid green;
+        display: inline;
+        float:right;
+    }
+    div{
+        white-space: nowrap;
+        width: 300px;
+        height: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border: 1px solid grey;
+    }
+</style>
+</head>
+<body>
+    <div class="div1">123</div>
+    <div class="div2">123</div>
+</body>
+</html>
